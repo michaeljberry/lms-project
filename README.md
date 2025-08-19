@@ -52,6 +52,8 @@ Ensure the following are installed:
 | APP_KEY              | Laravel app key                                       | base64:...                      |
 | APP_DEBUG            | Enable debug mode                                     | true                            |
 | APP_URL              | URL where Laravel backend runs                        | http://localhost:8000           |
+| SESSION_DOMAIN       | Domain for session cookies                             | localhost                       |
+| SANCTUM_STATEFUL_DOMAINS | Comma-separated list of stateful domains for Sanctum | localhost,localhost:3000        |
 | DB_CONNECTION        | Database connection type                              | mysql                           |
 | DB_HOST              | Database host                                         | 127.0.0.1                       |
 | DB_PORT              | Database port                                         | 3306                            |
