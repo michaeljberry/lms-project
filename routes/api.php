@@ -30,3 +30,15 @@ Route::post('/logout', function (Request $request) {
 
     return response()->noContent();
 })->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('roles', \App\Http\Controllers\RoleController::class);
+    Route::apiResource('permissions', \App\Http\Controllers\PermissionController::class);
+    Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show']);
+    Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update']);
+});
+
+Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
+    $request->user()->currentAccessToken()?->delete();
+    return response()->noContent(); // 204
+});

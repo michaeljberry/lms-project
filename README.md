@@ -7,6 +7,8 @@ This repository contains a monorepo scaffold for a **Full-Stack Learning Managem
 - Tailwind CSS configured for the React app
 - Health check endpoint at GET `/api/health`
 - Sample React /health page that calls the API and shows status
+- Role based access control with hierarchies and course level overrides
+- Extended user profiles
 
 ## Minimal Structure
 
@@ -146,3 +148,26 @@ git tag -a v0.1.0-starterkit-setup -m "Initial starter kit setup"
 git push --tags
 ```
 ---
+
+## 8. Authentication & CORS
+
+### CORS Configuration
+- Cross-origin requests are allowed for origins declared in `APP_URL`, `SESSION_DOMAIN`, and `SANCTUM_STATEFUL_DOMAINS` within `.env`.
+- Update these values to match your frontend domain. Configuration details live in `config/cors.php`.
+
+### Authentication Flow
+1. Fetch CSRF cookie: `GET /sanctum/csrf-cookie`.
+2. Log in: `POST /login` with `email` and `password` (throttled to 5 attempts per minute).
+3. Retrieve current user: `GET /me` (requires `auth:sanctum`).
+4. Log out: `POST /logout` (requires `auth:sanctum`).
+
+Laravel Fortify handles authentication while Sanctum manages SPA sessions.
+
+## 9. Developer Documentation
+
+Additional developer documentation is available in the `docs/` directory:
+
+- `permission-matrix.md` – overview of roles and permissions.
+- `setup.md` – environment setup steps.
+- `api-contract.md` – description of API endpoints.
+

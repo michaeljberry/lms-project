@@ -13,11 +13,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $this->call(RolePermissionSeeder::class);
+
+        $user->profile()->create([
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'learning_objectives' => 'Explore the platform',
+            'skills' => ['testing'],
+            'interests' => ['laravel'],
+            'timezone' => 'UTC',
+            'location' => 'Internet',
+        ]);
+
+        \App\Models\Course::firstOrCreate(['title' => 'Sample Course']);
     }
 }

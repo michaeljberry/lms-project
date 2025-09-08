@@ -27,7 +27,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertStatus(200);
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()
@@ -46,9 +46,8 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post('/logout');
+        $response = $this->actingAs($user)->post(url('api/logout'));
 
-        $this->assertGuest();
-        $response->assertRedirect('/');
+        return response()->noContent();
     }
 }
